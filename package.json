@@ -8,8 +8,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "axios": "^0.20.0",
+    "cors": "^2.8.5",
+    "moment": "^2.29.1",
     "next": "9.5.5",
-    "react": "16.14.0",
-    "react-dom": "16.14.0"
+    "react": "^16.14.0",
+    "react-dom": "16.14.0",
+    "react-live-clock": "^5.0.9",
+    "react-moment": "^1.0.0",
+    "yahoo-finance": "^0.3.6"
   }
 }
