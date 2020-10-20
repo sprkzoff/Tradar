@@ -11,6 +11,10 @@ export default function Home() {
   const [eth, setEth] = useState(0);
   const [btc, setBtc] = useState(0);
   const [omg, setOmg] = useState(0);
+  const [btc_his, setBtc_his] = useState([]);
+  const [eth_his, setEth_his] = useState([]);
+  const [omg_his, setOmg_his] = useState([]);
+  const [today, setToday] = useState(new Date().toString());
   useEffect(()=>{
     async function loadData() {
       const res_eth = await axios.post(url+'yhfinance/quote',{
@@ -33,8 +37,20 @@ export default function Home() {
       //console.log(res_omg.data)
       setOmg(res_omg.data.price.regularMarketPrice)
     }
+    // loop fetch
     const interval = setInterval(async() => {
       await loadData();
+      // check if new tick is arrived
+      let temp_today = new Date()
+      if(temp_today.getHours() === 7 && temp_today.getMinutes() === 0 && temp_today.getSeconds() <= 20) {
+        console.log('new day')
+        // set state
+        setToday(temp_today.toString())
+      }
+      else {
+        // do nothing
+        console.log('same day')
+      }
     }, 20000);
     return () => clearInterval(interval);
   },[]);
