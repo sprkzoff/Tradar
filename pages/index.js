@@ -13,7 +13,7 @@ export default function Home() {
   const [today, setToday] = useState(new Date().toString());
   useEffect(() => {
     async function loadData() {
-      const res = await axios.post(url + "yhfinance/allPrice", {
+      const res = await axios.post(url + "allPrice", {
         allSymbols: allSymbols,
       });
       let all_price_only = res.data.data.map((item) => {
