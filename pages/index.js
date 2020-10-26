@@ -6,7 +6,7 @@ import axios from "axios";
 import Clock from "react-live-clock";
 
 const url = "http://localhost:3000/api/";
-const allSymbols = "BTCUSD=X,ETHUSD=X,OMG-USD";
+const allSymbols = "BTC-USD,ETH-USD,OMG-USD";
 
 export default function Home() {
   const [all_crypto, setAll_crypto] = useState([]);
