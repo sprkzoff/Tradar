@@ -20,8 +20,8 @@ export default async (req, res) => {
             //console.log(quotes)
             let all_PA = {}
             // find all priceAction and add to all_PA
-            // call func.
-            // add to all_PA
+            // engulfing
+            all_PA['engulfing'] = engulfing(quotes);
             data.push({'name': coin, 'value': all_PA})
         });
     }
@@ -37,4 +37,17 @@ export default async (req, res) => {
     });
 }
 
+
+
 // define priceAction func here
+
+function engulfing(quotes) {
+    // Check bullish
+    if(quotes[1].open >= quotes[1].close && quotes[0].open < quotes[0].close && quotes[0].open < quotes[1].close && quotes[0].close > quotes[1].open) {
+        return 'bull';
+    }
+    else if(quotes[1].open <= quotes[1].close && quotes[0].open > quotes[0].close && quotes[0].open > quotes[1].close && quotes[0].close < quotes[1].open) {
+        return 'bear';
+    }
+    else return '-';
+}
