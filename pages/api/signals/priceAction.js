@@ -22,6 +22,8 @@ export default async (req, res) => {
             // find all priceAction and add to all_PA
             // engulfing
             all_PA['engulfing'] = engulfing(quotes);
+            // harami
+            all_PA['harami'] = harami(quotes);
             data.push({'name': coin, 'value': all_PA})
         });
     }
@@ -46,7 +48,20 @@ function engulfing(quotes) {
     if(quotes[1].open >= quotes[1].close && quotes[0].open < quotes[0].close && quotes[0].open < quotes[1].close && quotes[0].close > quotes[1].open) {
         return 'bull';
     }
+    //Check bearish
     else if(quotes[1].open <= quotes[1].close && quotes[0].open > quotes[0].close && quotes[0].open > quotes[1].close && quotes[0].close < quotes[1].open) {
+        return 'bear';
+    }
+    else return '-';
+}
+
+function harami(quotes) {
+    // Check bullish
+    if(quotes[1].open > quotes[1].close && quotes[0].open < quotes[0].close && quotes[0].open > quotes[1].close && quotes[0].close < quotes[1].open) {
+        return 'bull';
+    }
+    //Check bearish
+    else if(quotes[1].open < quotes[1].close && quotes[0].open > quotes[0].close && quotes[0].open < quotes[1].close && quotes[0].close > quotes[1].open) {
         return 'bear';
     }
     else return '-';
