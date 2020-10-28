@@ -24,6 +24,8 @@ export default async (req, res) => {
             all_PA['engulfing'] = engulfing(quotes);
             // harami
             all_PA['harami'] = harami(quotes);
+            // morning or evening star
+            all_PA['star'] = star(quotes); 
             data.push({'name': coin, 'value': all_PA})
         });
     }
@@ -65,4 +67,41 @@ function harami(quotes) {
         return 'bear';
     }
     else return '-';
+}
+
+function doji(tick) {
+    if(Math.abs(tick.open-tick.close)/tick.open <= 0.015)
+    {
+        //console.log('found doji')
+        return true
+    }
+    else return false
+}
+
+function star(quotes) {
+    // Check bullish
+    //console.log('===== '+quotes[0].symbol+' STAR CHECK_LOG =====')
+    if(quotes[2].open > quotes[2].close && doji(quotes[1]) && (quotes[1].open <= quotes[2].close || Math.abs(quotes[1].open - quotes[2].close)/quotes[2].close <= 0.05 ) && quotes[0].open < quotes[0].close && (quotes[0].open >= quotes[1].close || Math.abs(quotes[1].close - quotes[0].open)/quotes[0].open <= 0.05 ) && (quotes[0].close - (quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)))/(quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)) >= -0.01 ) {
+        // console.log(quotes[2].open > quotes[2].close)
+        // console.log(doji(quotes[1]))
+        // console.log((quotes[1].open <= quotes[2].close || Math.abs(quotes[2].close - quotes[1].open)/quotes[2].close <= 0.05 ))
+        // console.log(quotes[0].open < quotes[0].close)
+        // console.log((quotes[0].open >= quotes[1].close || Math.abs(quotes[0].open - quotes[1].close)/quotes[0].open <= 0.05  ))
+        // console.log((quotes[0].close - (quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)))/(quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)))
+        return 'morning';
+    }
+    //Check bearish
+    else if(quotes[2].open < quotes[2].close && doji(quotes[1]) && (quotes[1].open >= quotes[2].close || Math.abs(quotes[2].close - quotes[1].open)/quotes[2].close <= 0.05 ) && quotes[0].open > quotes[0].close && (quotes[0].open <= quotes[1].close || Math.abs(quotes[0].open - quotes[1].close)/quotes[0].open <= 0.05  ) && (quotes[0].close - (quotes[2].close-(Math.abs(quotes[2].close-quotes[2].open)/2)))/(quotes[2].close-(Math.abs(quotes[2].close-quotes[2].open)/2)) <= 0.01 ) {
+        // console.log(quotes[2].open < quotes[2].close)
+        // console.log(doji(quotes[1]))
+        // console.log((quotes[1].open >= quotes[2].close || Math.abs(quotes[2].close - quotes[1].open)/quotes[2].close <= 0.05 ))
+        // console.log(quotes[0].open > quotes[0].close)
+        // console.log((quotes[0].open <= quotes[1].close || Math.abs(quotes[0].open - quotes[1].close)/quotes[0].open <= 0.05  ))
+        // console.log((quotes[0].close - (quotes[2].close-(Math.abs(quotes[2].close-quotes[2].open)/2)))/(quotes[2].close-(Math.abs(quotes[2].close-quotes[2].open)/2)))
+        return 'evening';
+    }
+    else {
+        //console.log('Not found star pattern')
+        return '-';
+    }
 }
