@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Clock from "react-live-clock";
 
-const url = "http://localhost:3000/api/";
+const url = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT;
 const allSymbols = "BTC-USD,ETH-USD,OMG-USD";
 
 export default function Home() {
