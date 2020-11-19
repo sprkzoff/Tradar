@@ -11,7 +11,9 @@ const allSymbols = "BTC-USD,ETH-USD,OMG-USD";
 export default function Home() {
   const [all_crypto, setAll_crypto] = useState([]);
   const [today, setToday] = useState(new Date().toString());
+  const [portfolio,setPortfolio] = useState([]);
   useEffect(() => {
+    // crypto data
     async function loadData() {
       const res = await axios.post(url + "allPrice", {
         allSymbols: allSymbols,
@@ -22,11 +24,17 @@ export default function Home() {
           value: item.price.regularMarketPrice,
         };
       });
-      //console.log(res.data.data)
       setAll_crypto(all_price_only);
     }
+    // portfolio data
+    async function loadPortfolio() {
+      const res = await axios.get(url + "portfolio/sheet");
+      setPortfolio(res.data.data)
+      console.log('portfolio',portfolio)
+    }
     // init
-    loadData(); 
+    loadData();
+    loadPortfolio();
     // loop fetch
     const interval = setInterval(async () => {
       await loadData();
@@ -40,9 +48,6 @@ export default function Home() {
         console.log("new day");
         // set state
         setToday(temp_today.toString());
-      } else {
-        // do nothing
-        console.log("same day");
       }
     }, 20000);
     return () => clearInterval(interval);
