@@ -22,5 +22,6 @@ export default async (req, res) => {
     }).catch((error) => {
         console.log('An error occured!');
         console.error(error);
+        res.statusCode = error.response.status
     });
 }
