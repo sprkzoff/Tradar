@@ -17,6 +17,7 @@
 
 # environment
 .env
+sheet_key.json
 
 # misc
 .DS_Store
