@@ -29,8 +29,8 @@ export default function Home() {
     // portfolio data
     async function loadPortfolio() {
       const res = await axios.get(url + "portfolio/sheet");
+      // console.log(res.data.data)
       setPortfolio(res.data.data)
-      console.log('portfolio',portfolio)
     }
     // init
     loadData();
