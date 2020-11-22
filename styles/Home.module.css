@@ -126,3 +126,21 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.cardAction {
+  display: block;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalpaper {
+  width: 75%;
+  height: 90%;
+  background-color: #1b1b1b;
+  border: 2px solid #fff;
+  padding: 20px;
+}
