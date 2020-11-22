@@ -76,12 +76,6 @@ function doji(tick) {
 function star(quotes) {
     // Check bullish
     if (quotes[2].open > quotes[2].close && doji(quotes[1]) && (quotes[1].open <= quotes[2].close || Math.abs(quotes[1].open - quotes[2].close) / quotes[2].close <= 0.05) && quotes[0].open < quotes[0].close && (quotes[0].open >= quotes[1].close || Math.abs(quotes[1].close - quotes[0].open) / quotes[0].open <= 0.05) && (quotes[0].close - (quotes[2].close + (Math.abs(quotes[2].open - quotes[2].close) / 2))) / (quotes[2].close + (Math.abs(quotes[2].open - quotes[2].close) / 2)) >= -0.01) {
-        // console.log(quotes[2].open > quotes[2].close)
-        // console.log(doji(quotes[1]))
-        // console.log((quotes[1].open <= quotes[2].close || Math.abs(quotes[2].close - quotes[1].open)/quotes[2].close <= 0.05 ))
-        // console.log(quotes[0].open < quotes[0].close)
-        // console.log((quotes[0].open >= quotes[1].close || Math.abs(quotes[0].open - quotes[1].close)/quotes[0].open <= 0.05  ))
-        // console.log((quotes[0].close - (quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)))/(quotes[2].close+(Math.abs(quotes[2].open-quotes[2].close)/2)))
         return 'morning';
     }
     //Check bearish
@@ -89,7 +83,6 @@ function star(quotes) {
         return 'evening';
     }
     else {
-        //console.log('Not found star pattern')
         return '-';
     }
 }
