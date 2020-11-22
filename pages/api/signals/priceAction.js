@@ -13,7 +13,6 @@ export default async (req, res) => {
         to: today.toISOString().slice(0, 10), // Date string format YYYY-MM-DD
 
     }, function (err, quotes) {
-        console.log(quotes)
         data = quotes
     });
     for(let coin in data) {
